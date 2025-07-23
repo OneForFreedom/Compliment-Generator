@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Compliment Generator</title>
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Inter', sans-serif;
+      color: #cc5500;
+      background: linear-gradient(270deg, 
+      #ff9a9e,  
+      #fecfef, 
+      #f6f9a7,  
+      #a8edea,  
+      #cde6f7,  
+      #d6c1e8,  
+      #ffb347,  
+      #ff9a9e  
+      );
+      background-size: 1400% 1400%;
+      animation: rainbowMove 60s ease infinite;
+    }
+
+    @keyframes rainbowMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 1);
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+      max-width: 600px;
+      text-align: center;
+    }
+
+    #compliment {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+
+      background: linear-gradient(270deg, 
+      #ff9a9e,  
+      #fecfef, 
+      #f6f9a7,  
+      #a8edea,  
+      #cde6f7,  
+      #d6c1e8,  
+      #ffb347,  
+      #ff9a9e  
+      );
+      background-size: 1400% 1400%;
+      animation: rainbowMove 10s ease infinite;
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    button {
+  background: linear-gradient(270deg, 
+      #ff9a9e,  
+      #fecfef, 
+      #f6f9a7,  
+      #a8edea,  
+      #cde6f7,  
+      #d6c1e8,  
+      #ffb347,  
+      #ff9a9e  
+  );
+  background-size: 1400% 1400%;
+  animation: rainbowMove 20s ease infinite;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  color: ;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+
+button:hover {
+  filter: brightness(1);
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p id="compliment">Click the button to receive an AWESOME! compliment</p>
+    <button id="generate-btn">Get Compliment! →</button>
+  </div>
+
+  <script>
+    const compliments = [
+  "You're the human version of a double rainbow 🌈🌈",
+  "Your smile can light up the darkest days.",
+  "You're like sunshine on a rainy day ☀️🌧️",
+  "You're a legend in the making.",
+  "Your kindness is a superpower.",
+  "Brains, looks, and heart? You're stacked!",
+  "You make the world better just by being in it.",
+  "You're the reason someone smiles today.",
+  "You’ve got a vibe that’s unmatched.",
+  "Confidence looks great on you, wear it often!",
+  "You’ve Got The Kindest Eyes I’ve Ever Seen.",
+  "Your Smile Could Literally Brighten The Darkest Room.",
+  "You Have A Brain That Works Like Magic.",
+  "Your Energy Is Seriously Infectious.",
+  "You Make Everything Around You Better Just By Being There.",
+  "You’re The Definition Of Effortlessly Cool.",
+  "Your Laugh Is My Favourite Sound.",
+  "You’re A Walking Inspiration.",
+  "You Always Know How To Make Someone’s Day.",
+  "You’ve Got Style That Nobody Can Copy.",
+  "Your Creativity Is Next-Level.",
+  "You’re The Kind Of Person Everyone Wishes They Knew.",
+  "You’re A Legend In The Making.",
+  "Your Confidence Is Absolutely Magnetic.",
+  "You Handle Challenges Like A Total Boss.",
+  "You Have The Best Taste In Everything.",
+  "You’re A Master At Turning Problems Into Opportunities.",
+  "Your Honesty Is So Refreshing.",
+  "You’ve Got An Amazing Sense Of Humour.",
+  "You’re One Of The Most Genuine People I Know.",
+  "Your Curiosity Makes The World More Interesting.",
+  "You’re Always Ready To Help And That’s Rare.",
+  "Your Determination Could Move Mountains.",
+  "You’re The Perfect Mix Of Smart And Funny.",
+  "You’ve Got A Heart That’s Bigger Than The Universe.",
+  "You Make Difficult Things Look Easy.",
+  "Your Passion Lights A Fire In Everyone Around You.",
+  "You’re Seriously One Of A Kind.",
+  "You Have The Power To Make People Feel Seen.",
+  "Your Ideas Are Pure Gold.",
+  "You’re Like A Breath Of Fresh Air.",
+  "You’ve Got An Amazing Way With Words.",
+  "You Make Hard Work Look Like A Game.",
+  "You’re The Reason People Believe In Good.",
+  "You’ve Got That Unforgettable Spark.",
+  "You’re A Gift To Everyone Around You.",
+  "You’ve Got The Patience Of A Saint.",
+  "Your Optimism Is Truly Inspiring.",
+  "You’re A Genius In Disguise.",
+  "Your Energy Could Power A City.",
+  "You Make The World A Better Place Just By Being You.",
+  "You’re The Definition Of Resilience.",
+  "Your Smile Can Fix A Bad Day Instantly.",
+  "You Have An Incredible Sense Of Style.",
+  "You’re A Natural Leader.",
+  "Your Ideas Are Always So Original.",
+  "You Have A Remarkable Ability To Stay Calm Under Pressure.",
+  "You’re The Reason I Believe In Kindness.",
+  "You’ve Got A Mind That Never Stops Thinking.",
+  "Your Laugh Lights Up The Room.",
+  "You’re A Real-Life Superhero.",
+  "You’re Brilliant At What You Do.",
+  "You’ve Got A Heart Full Of Gold.",
+  "Your Presence Is Like A Warm Hug.",
+  "You’re A Master Of Turning Dreams Into Reality.",
+  "You’ve Got An Infectious Positive Vibe.",
+  "You’re Unstoppable When You Set Your Mind To Something.",
+  "You’re The Best At What You Do, No Contest.",
+  "You Have The Most Beautiful Soul.",
+  "You’re A True Friend Everyone Wants.",
+  "You Radiate Confidence And Kindness.",
+  "Your Voice Could Calm A Storm.",
+  "You’re A Force To Be Reckoned With.",
+  "You Make Everyone Feel Important.",
+  "You’ve Got A Talent For Making People Smile.",
+  "You’re The Kind Of Person Who Changes Lives.",
+  "Your Intelligence Is Seriously Impressive.",
+  "You’re So Good At Lifting Others Up.",
+  "You Have The Power To Inspire Greatness.",
+  "You’re A Bright Light In A Sometimes Dark World.",
+  "You Always Know What To Say To Make Things Better.",
+  "You’re A Breath Of Fresh Air In A Crowded Room.",
+  "You’ve Got A Way Of Making Things Happen.",
+  "You’re The Epitome Of Cool Without Even Trying.",
+  "You’re A Walking, Talking Mood Booster.",
+  "You Have A Unique And Beautiful Perspective.",
+  "You’re Always One Step Ahead.",
+  "Your Kindness Is Contagious.",
+  "You’re The Most Reliable Person I Know.",
+  "You Make Hard Things Look Easy.",
+  "You’ve Got A Magnetic Personality.",
+  "You’re A Great Listener And That’s Rare.",
+  "You Have The Wisdom Of Someone Twice Your Age.",
+  "You’re A Natural At Making People Feel Welcome.",
+  "Your Enthusiasm Is Seriously Catchy.",
+  "You Have An Amazing Ability To Stay Positive.",
+  "You’re A Rock For Everyone Around You.",
+  "You’re The Kind Of Person Who Makes History.",
+  "You’ve Got The Patience Of A Zen Master.",
+  "You’re Always Ready To Learn And Grow.",
+  "You’re A Genuine Gem.",
+  "You Make The Ordinary Extraordinary.",
+  "You Have An Unmatched Work Ethic.",
+  "You’re The Heartbeat Of Any Group.",
+  "You Have A Mind Like A Steel Trap.",
+  "You’re The Most Creative Person I Know.",
+  "You’ve Got The Coolest Vibe Ever.",
+  "You Always Know How To Make People Laugh.",
+  "You’re A Trailblazer.",
+  "You Have The Ability To See The Best In Everyone.",
+  "You’re A Source Of Endless Inspiration.",
+  "You’re As Sharp As A Tack.",
+  "You’ve Got A Magnetic Charm.",
+  "You’re The Kind Of Person Who Makes Dreams Come True.",
+  "You’re Full Of Surprises And That’s Amazing.",
+  "You’ve Got A Heart That Never Gives Up.",
+  "You’re A Visionary.",
+  "You’ve Got A Killer Sense Of Style.",
+  "You’re A Champion Of Positivity.",
+  "You Have The Best Ideas.",
+  "You’re A True Original.",
+  "You’re Always Calm In The Chaos.",
+  "You Have A Beautiful Way With Words.",
+  "You’re One In A Million.",
+  "You’ve Got The Patience To Move Mountains.",
+  "You’re A Natural Born Leader.",
+  "You Make People Feel Seen And Heard.",
+  "You’re The Definition Of Kindness.",
+  "You Have A Bright And Beautiful Mind.",
+  "You’re Always There When It Counts.",
+  "You’ve Got The Power To Change The World.",
+  "You’re The Kind Of Person People Look Up To.",
+  "You’re An Absolute Legend.",
+  "You Have A Heart Of Pure Gold.",
+  "You’re The Coolest Person I Know.",
+  "You Make Life More Fun.",
+  "You’ve Got A Magnetic Personality.",
+  "You’re The Reason People Believe In Goodness.",
+  "You’re A Bright Light In Any Room.",
+  "You’re The Real Deal.",
+  "You’ve Got An Amazing Work Ethic.",
+  "You’re The Definition Of Resilience.",
+  "You Make People Smile Just By Being You.",
+  "You’ve Got A Brilliant Mind.",
+  "You’re An Inspiration To Everyone Around You.",
+  "You’re The King Of Your Own Kingdom.",
+  "You Have The Power To Inspire.",
+  "You’re A Natural At What You Do.",
+  "You’ve Got A Heart That Shines Bright.",
+  "You’re The Coolest Cat In The Room.",
+  "You’re A Genius In Disguise.",
+  "You’ve Got The Best Smile.",
+  "You’re Always Ready To Help.",
+  "You Have A Beautiful Soul.",
+  "You’re A Force To Be Reckoned With.",
+  "You’re The Best Version Of Yourself.",
+  "You’ve Got A Magnetic Charm.",
+  "You’re A Master Of Positivity.",
+  "You Make Everyone Feel Special.",
+  "You Have The Power To Change Lives.",
+  "You’re The Definition Of Cool.",
+  "You’ve Got An Amazing Talent.",
+  "You’re A Walking Inspiration.",
+  "You’re Always Ready To Face Challenges.",
+  "You’ve Got The Best Energy.",
+  "You’re A Bright Star In The Night Sky.",
+  "You’re The Reason For Smiles.",
+  "You Have The Mind Of A Genius.",
+  "You’re A Natural Leader.",
+  "You’ve Got A Heart Full Of Love.",
+  "You’re The Coolest Dude Around.",
+  "You’re Always There For Your Friends.",
+  "You Have An Unbreakable Spirit.",
+  "You’re The Real MVP.",
+  "You’ve Got A Unique Perspective.",
+  "You’re The Definition Of Awesome.",
+  "You Make Hard Things Look Easy.",
+  "You’ve Got A Heart That Cares Deeply.",
+  "You’re The Kind Of Person People Admire.",
+  "You’re A True Friend.",
+  "You’ve Got The Power To Inspire Greatness.",
+  "You’re Always Calm Under Pressure.",
+  "You’re A Bright Light In Dark Times.",
+  "You’ve Got The Best Ideas.",
+  "You’re A Master At What You Do.",
+  "You Have The Kindest Heart.",
+  "You’re The Coolest Guy In The Room.",
+  "You’ve Got The Strength To Overcome Anything.",
+  "You’re The Definition Of Cool Confidence.",
+  "You Make Everyone Feel Welcome.",
+  "You’ve Got A Mind That’s Always Growing.",
+  "You’re A Real-Life Superhero.",
+  "You’ve Got The Power To Make A Difference.",
+  "You’re A True Original.",
+  "You’re The King Of Kindness.",
+  "You’ve Got A Heart That’s Bigger Than The World.",
+  "You’re Always Ready To Lift Others Up.",
+  "You’ve Got The Coolest Style.",
+  "You’re A Walking Mood Booster.",
+  "You’ve Got The Talent To Shine Bright.",
+  "You’re The Definition Of Strength.",
+  "You Make Everyone Feel Special.",
+  "You’ve Got The Patience Of A Saint.",
+  "You’re The Coolest Dude Around.",
+  "You Have The Wisdom Of A Sage.",
+  "You’re Always Ready To Help Out.",
+  "You’ve Got The Heart Of A Warrior.",
+  "You’re The Definition Of Awesome.",
+  "You Make Hard Things Look Easy.",
+  "You’ve Got A Smile That Can Light Up A City.",
+  "You’re The Kind Of Person Everyone Needs.",
+  "You’ve Got The Power To Change The World.",
+  "You’re A Bright Star In The Sky.",
+  "You’re The Real Deal.",
+  "You’ve Got An Amazing Mind.",
+  "You’re A Natural Born Leader.",
+  "You’ve Got A Heart Of Gold.",
+  "You’re The Coolest Cat In Town.",
+  "You Make People Feel Heard And Seen.",
+  "You’ve Got The Strength To Overcome Anything.",
+  "You’re The King Of Cool.",
+  "You’ve Got The Best Vibes.",
+  "You’re Always Ready To Face Challenges.",
+  "You’ve Got The Power To Inspire.",
+  "You’re The Definition Of Confidence.",
+  "You Make Everyone Smile.",
+  "You’ve Got A Unique Perspective.",
+  "You’re A True Inspiration.",
+  "You’ve Got The Talent To Make A Difference.",
+  "You’re Always Calm And Collected.",
+  "You’ve Got A Heart That Cares.",
+  "You’re The Coolest Guy Around.",
+  "You’ve Got The Strength To Keep Going.",
+  "You’re The Definition Of Cool Confidence.",
+  "You Make People Feel Welcome.",
+  "You’ve Got A Mind That’s Always Growing.",
+  "You’re A Real-Life Hero.",
+  "You’ve Got The Power To Make Change.",
+  "You’re A True Original.",
+  "You’re The King Of Kindness.",
+  "You’ve Got A Heart That’s Bigger Than The World.",
+  "You’re Always Ready To Lift Others Up.",
+  "You’ve Got The Coolest Style.",
+  "You’re A Walking Mood Booster.",
+  "You’ve Got The Talent To Shine Bright.",
+  "You’re The Definition Of Strength.",
+  "You Make Everyone Feel Special.",
+  "You’ve Got The Patience Of A Saint.",
+  "You’re The Coolest Dude Around.",
+  "You Have The Wisdom Of A Sage.",
+  "You’re Always Ready To Help Out.",
+  "You’ve Got The Heart Of A Warrior.",
+  "You’re The Definition Of Awesome.",
+  "You Make Hard Things Look Easy.",
+  "You’ve Got A Smile That Can Light Up A City.",
+  "You’re The Kind Of Person Everyone Needs.",
+  "You’ve Got The Power To Change The World.",
+  "You’re A Bright Star In The Sky.",
+  "You’re The Real Deal.",
+  "You’ve Got An Amazing Mind.",
+  "You’re A Natural Born Leader.",
+  "You’ve Got A Heart Of Gold.",
+  "You’re The Coolest Cat In Town.",
+  "You Make People Feel Heard And Seen.",
+  "You’ve Got The Strength To Overcome Anything.",
+  "You’re The King Of Cool."
+];
+
+
+    const btn = document.getElementById('generate-btn');
+    const display = document.getElementById('compliment');
+
+    btn.addEventListener('click', () => {
+      const randomIndex = Math.floor(Math.random() * compliments.length);
+      display.textContent = compliments[randomIndex];
+    });
+  </script>
+</body>
+</html>
